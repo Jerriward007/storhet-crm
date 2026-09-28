@@ -1,0 +1,21 @@
+// use prisma-next
+
+types {
+  Uuid = String @db.Uuid
+}
+
+model User {
+  id        Uuid     @id @default(uuid())
+  email     String
+  createdAt DateTime @default(now())
+  posts     Post[]
+}
+
+model Post {
+  id        Uuid     @id @default(uuid())
+  title     String
+  userId    Uuid
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
